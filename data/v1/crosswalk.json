@@ -1,0 +1,38 @@
+{
+  "PRESENT": {
+    "key": "A",
+    "i2b2_2010": "present",
+    "context": "affirmed / recent / patient",
+    "fhir_r4": "Condition.clinicalStatus=active, verificationStatus=confirmed"
+  },
+  "NEGATED": {
+    "key": "B",
+    "i2b2_2010": "absent",
+    "context": "negated / recent / patient",
+    "fhir_r4": "Condition.verificationStatus=refuted"
+  },
+  "POSSIBLE": {
+    "key": "B",
+    "i2b2_2010": "possible",
+    "context": "affirmed / recent / patient, uncertain",
+    "fhir_r4": "Condition.verificationStatus=provisional or differential"
+  },
+  "HISTORICAL": {
+    "key": "B",
+    "i2b2_2010": "present (i2b2 does not mark temporality)",
+    "context": "affirmed / historical / patient",
+    "fhir_r4": "Condition.clinicalStatus=resolved, verificationStatus=confirmed"
+  },
+  "FAMILY": {
+    "key": "B",
+    "i2b2_2010": "associated_with_someone_else",
+    "context": "affirmed / recent / other",
+    "fhir_r4": "FamilyMemberHistory.condition (no patient Condition)"
+  },
+  "HYPOTHETICAL": {
+    "key": "B",
+    "i2b2_2010": "hypothetical or conditional",
+    "context": "affirmed / hypothetical / patient",
+    "fhir_r4": "no Condition (not asserted of the patient)"
+  }
+}

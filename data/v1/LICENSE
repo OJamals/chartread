@@ -1,0 +1,15 @@
+Copyright 2026 Ahmad Omar Aljamal
+
+DATA. ChartRead constructed items (constructed.jsonl) and this directory's
+documentation are licensed under the Creative Commons Attribution 4.0 International
+licence (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/legalcode
+
+CODE. The code that generates, renders and scores ChartRead
+(clinical_eval/chart_read.py, scripts/chart_read.py,
+clinical_eval/tests/test_chart_read.py) is licensed under the Apache License,
+Version 2.0; the full text is in LICENSE-CODE.
+
+THIRD-PARTY DATA. negex_ids.jsonl holds identifiers only. The NegEx/ConText
+annotation set they refer to (Chapman et al. 2001; Harkema et al. 2009;
+github.com/chapmanbe/negex) is covered by neither licence and is not
+redistributed here.

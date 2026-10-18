@@ -1,0 +1,19 @@
+Copyright 2026 Ahmad Omar Aljamal
+
+DATA. The ChartRead constructed items (data/v1/constructed.jsonl, data/v1.1/constructed.jsonl,
+data/v1.2/constructed.jsonl), the other files under data/ and the documentation under docs/ are
+licensed under the Creative Commons Attribution 4.0 International licence (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+CODE. The code that generates, renders and scores ChartRead (chartread/, scripts/, tests/) is
+licensed under the Apache License, Version 2.0; the full text is in LICENSE.
+
+THIRD-PARTY DATA. data/*/negex_ids.jsonl holds identifiers only. The NegEx/ConText annotation set
+they refer to (Chapman et al. 2001; Harkema et al. 2009; github.com/chapmanbe/negex) is covered by
+neither licence and is not redistributed here. The addendum files under data/addendum2-realnotes
+and data/addendum3-realnotes-abstain hold MTSamples row identifiers and character offsets only;
+the MTSamples transcriptions (mtsamples.com) are covered by neither licence and are not
+redistributed here.
+
+MODEL OUTPUTS. data/responses holds replies written by the language models named in
+data/responses/arms.json, released as research records under each provider's terms.
