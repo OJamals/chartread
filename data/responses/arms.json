@@ -38,7 +38,7 @@
   "kimik3": {
     "model": "cline/cline-pass/kimi-k3",
     "kind": "open-weight model",
-    "note": "partial: 1,056 of 1,698 v1 items answered"
+    "note": "partial: 1,056 of 1,698 v1 items requested, 977 answered; stopped by the quota, not reported"
   },
   "mimo26pro": {
     "model": "cline/cline-pass/mimo-v2.6-pro",
@@ -49,6 +49,11 @@
     "model": "opencode/big-pickle",
     "kind": "model",
     "note": "almost every request failed upstream; kept for the record"
+  },
+  "nemotron": {
+    "model": "opencode/nemotron-3-ultra-free",
+    "kind": "open-weight model",
+    "note": "pre-registered; both pilot requests failed upstream (deviation 5); pilot only"
   },
   "layer2": {
     "model": "rule-based assertion engine (development repository), as registered",

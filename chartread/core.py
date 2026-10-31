@@ -38,6 +38,8 @@ from chartread.stats import (
     ERROR,
     MISSING,
     UNPARSED,
+    bootstrap_interval,
+    clustered_paired,
     grade,
     latest_responses,
     mcnemar_exact,
@@ -296,7 +298,17 @@ def abstain_tests(
     negatives = [i for i in cut if i.status is not Status.PRESENT]
     results: dict[str, Any] = {"pairs": len(paired), "negatives": len(negatives), "per_arm": {}}
     pooled = {"AH1": [0, 0], "AH2": [0, 0]}
+    clusters: dict[str, dict[str, list[tuple[bool, bool]]]] = {
+        "AH1": defaultdict(list),
+        "AH2": defaultdict(list),
+    }
     for arm, letters in abstain_by_arm.items():
+        # A cut window's present and non-present twins print one text (deviation 26), so the
+        # text, not the item, is the unit a model can tell apart.
+        for f, c in paired:
+            clusters["AH1"][c.text].append(
+                (letters.get(c.item_id) == "C", letters.get(f.item_id) == "C")
+            )
         only_cut = sum(
             letters.get(c.item_id) == "C" and letters.get(f.item_id) != "C" for f, c in paired
         )
@@ -309,6 +321,10 @@ def abstain_tests(
         pooled["AH1"][1] += only_full
         binary = binary_by_arm.get(arm)
         if binary is not None:
+            for i in negatives:
+                clusters["AH2"][i.item_id].append(
+                    (binary.get(i.item_id) == "A", letters.get(i.item_id) == "A")
+                )
             fewer = sum(
                 binary.get(i.item_id) == "A" and letters.get(i.item_id) != "A" for i in negatives
             )
@@ -322,6 +338,9 @@ def abstain_tests(
     results["pooled"] = {
         name: {"for": a, "against": b, "p": mcnemar_exact(a, b)} for name, (a, b) in pooled.items()
     }
+    # Post hoc sensitivity (deviation 24): the item, not the model-item trial, as unit.
+    for name, by_item in clusters.items():
+        results["pooled"][name]["clustered"] = clustered_paired(by_item)
     return results
 
 
@@ -1296,7 +1315,10 @@ def hypothesis_tests(
             continue
         per_arm = {}
         only_full = only_shown = 0
+        clusters: dict[str, list[tuple[bool, bool]]] = defaultdict(list)
         for arm, letters in letters_by_arm.items():
+            for f, s in pairs:
+                clusters[s.item_id].append((_affirmed(s, letters), _affirmed(f, letters)))
             a = sum(_affirmed(f, letters) and not _affirmed(s, letters) for f, s in pairs)
             b = sum(_affirmed(s, letters) and not _affirmed(f, letters) for f, s in pairs)
             only_full, only_shown = only_full + a, only_shown + b
@@ -1313,6 +1335,8 @@ def hypothesis_tests(
                 f"only_{presentation}": only_shown,
                 "p": mcnemar_exact(only_full, only_shown),
             },
+            # Post hoc sensitivity (deviation 24): the item, not the model-item trial, as unit.
+            "clustered": clustered_paired(clusters),
         }
     primary = [("H1", results["H1"]["pooled"]), ("H2", results["H2"]["pooled"])]
     if "H3_chunk_cut" in results:
@@ -1396,11 +1420,22 @@ def agreement(
         answered = [(ref, a) for ref, (a, _) in ratings.items() if ref in mapping and a]
         agree = sum(a == items[mapping[ref]].answer for ref, a in answered)
         flags = Counter(flag for ref, (_, flag) in ratings.items() if ref in mapping and flag)
+        low, high = wilson(agree, len(answered))
         report["raters"][name] = {
             "answered": len(answered),
             "agree_with_key": agree,
             "agreement": round(agree / len(answered), 4) if answered else None,
+            "ci95": [round(low, 4), round(high, 4)] if answered else None,
             "flags": dict(flags),
+            # Agreement split by the key's letter: on present-keyed items, a miss is a rater
+            # calling a finding not present, the reading a model's false denial makes.
+            "by_key": {
+                letter: {
+                    "items": sum(items[mapping[ref]].answer == letter for ref, _ in answered),
+                    "agree": sum(a == letter == items[mapping[ref]].answer for ref, a in answered),
+                }
+                for letter in ("A", "B")
+            },
         }
     names = list(raters)
     if len(names) >= 2:
@@ -1413,9 +1448,12 @@ def agreement(
         a = [str(first[ref][0]) for ref in shared]
         b = [str(second[ref][0]) for ref in shared]
         kappa = cohen_kappa(a, b)
+        interval = bootstrap_interval(a, b, cohen_kappa)
         report["between_raters"] = {
             "shared": len(shared),
             "kappa": None if kappa is None else round(kappa, 4),
+            # Percentile bootstrap over items (stats.BOOTSTRAP_RESAMPLES, fixed seed).
+            "kappa_ci95": None if interval is None else [round(v, 4) for v in interval],
         }
         report["disputed_by_both"] = [
             {"ref": ref, "item_id": mapping[ref], "key": items[mapping[ref]].answer}

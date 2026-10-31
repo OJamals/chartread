@@ -1,0 +1,115 @@
+{
+  "inputs": {
+    "mtsamples": {
+      "path": "corpora/realnotes/mtsamples/mtsamples.csv",
+      "sha256": "a92cb78569f460606661ee7da50c92305b60d0fac2be4b06c8d2de0f234612d4"
+    },
+    "aci-bench": {
+      "path": "corpora/realnotes/aci-bench",
+      "commit": "b909b2bb9cf1d19de08df15cddde7bd0179665e4",
+      "sha256": {
+        "train": "6c778d4ac5e6cc6f1964786f9286e8d765c210f22ed6b57f83aff8497409cea4",
+        "valid": "6629e89e3fb409d2b3eceab60dc7b32fe1d3fb8d4e07795039284965522aa4d0",
+        "clinicalnlp_taskB_test1": "5cc4008e68545f84913744a8e493a58bdf17ba7e1b7a0be46d6943d6bfca9471",
+        "clinicalnlp_taskC_test2": "599e3330a14e25a0e056aee1365ffac7ebe50058f15821eae42a5513c2bb5a4f",
+        "clef_taskC_test3": "d3c18362a42124ea2bd1b2b4b66ba76a11bb123dfdb416471ae3b5924d1428ec"
+      }
+    }
+  },
+  "notes": {
+    "mtsamples": 2357,
+    "aci-bench": 207
+  },
+  "lexicon_names": 186879,
+  "notes_with_family_section": {
+    "mtsamples:restored": 306,
+    "mtsamples:distributed": 306,
+    "aci-bench:as_written": 31
+  },
+  "census": {
+    "aci-bench:as_written": {
+      "control:control": 138,
+      "control:cued": 29,
+      "control:historical": 14,
+      "control:names_person": 50,
+      "control:names_relative": 1,
+      "control:no_finding": 38,
+      "family:cued": 2,
+      "family:fh_bare": 11,
+      "family:names_relative": 47,
+      "family:no_finding": 1,
+      "findings_owned_by_cue": 1067,
+      "pseudo_cues": 3,
+      "statements_with_cue": 1130,
+      "statements_with_findings_past_a_stop": 15
+    },
+    "mtsamples:distributed": {
+      "control:control": 995,
+      "control:cued": 520,
+      "control:historical": 163,
+      "control:names_person": 663,
+      "control:names_relative": 48,
+      "control:no_finding": 546,
+      "family:cued": 101,
+      "family:fh_anaphoric": 12,
+      "family:fh_bare": 36,
+      "family:names_other_person": 12,
+      "family:names_relative": 394,
+      "family:no_finding": 37,
+      "findings_owned_by_cue": 7865,
+      "pseudo_cues": 79,
+      "statements_with_cue": 10239,
+      "statements_with_findings_past_a_stop": 211
+    },
+    "mtsamples:restored": {
+      "control:control": 995,
+      "control:cued": 520,
+      "control:historical": 163,
+      "control:names_person": 663,
+      "control:names_relative": 48,
+      "control:no_finding": 546,
+      "family:cued": 101,
+      "family:fh_anaphoric": 12,
+      "family:fh_bare": 36,
+      "family:names_other_person": 12,
+      "family:names_relative": 394,
+      "family:no_finding": 37,
+      "findings_owned_by_cue": 7865,
+      "pseudo_cues": 79,
+      "statements_with_cue": 10239,
+      "statements_with_findings_past_a_stop": 211
+    }
+  },
+  "units": {
+    "mtsamples:restored": {
+      "neg_list": 7865,
+      "fh_bare": 36,
+      "fh_anaphoric": 12
+    },
+    "mtsamples:distributed": {
+      "neg_list": 7865,
+      "fh_bare": 36,
+      "fh_anaphoric": 12
+    },
+    "aci-bench:as_written": {
+      "neg_list": 1067,
+      "fh_bare": 11
+    }
+  },
+  "findings": {
+    "mtsamples:restored": {
+      "neg_list": 7865,
+      "fh_bare": 77,
+      "fh_anaphoric": 14
+    },
+    "mtsamples:distributed": {
+      "neg_list": 7865,
+      "fh_bare": 77,
+      "fh_anaphoric": 14
+    },
+    "aci-bench:as_written": {
+      "neg_list": 1067,
+      "fh_bare": 11
+    }
+  }
+}

@@ -49,8 +49,8 @@ the raters), **n/a**.
 | 14b | Conflicts of interest | All | pending | Declarations. |
 | 14c | Protocol access | H | reported | The pre-registration and addenda are released with the code. |
 | 14d | Registration | H | reported | Not registered in a public registry; the protocol's SHA-256 was recorded before the pilot (Validation section). |
-| 14e | Data availability | All | pending | The statement is written; the repository URL is pending. |
-| 14f | Code availability | All | pending | The statement is written (Apache-2.0); the repository URL is pending. |
+| 14e | Data availability | All | reported | Declarations: github.com/OJamals/chartread (private until the clinician ratings are returned). Real-text responses as answer letters only. |
+| 14f | Code availability | All | reported | Declarations: github.com/OJamals/chartread, Apache-2.0. |
 | 15 | Patient and public involvement | H | reported | Declarations: none. |
 | 16a | Flow of text through the study | E H | reported | Real-stratum mapping counts (kept and dropped by reason); addendum 2 census of units. |
 | 16b | Characteristics per source and split | E H | reported | Report types (discharge, radiology, echo, colonoscopy); MTSamples specialties are not broken down. |
@@ -69,4 +69,4 @@ the raters), **n/a**.
 **Changes made to the paper for this checklist (2026-10-18):** text dates (5c), training-date
 statement (6a), compute (12), patient and public involvement (15), registration statement (14d).
 Remaining gaps: the title and abstract wording (1, 2) wait on the owner's title choice, and 7d,
-8b, 8c, 13, 14a, 14b, 14e and 14f wait on the raters and the author.
+8b, 8c, 13, 14a and 14b wait on the raters and the author.
